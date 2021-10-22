@@ -27,11 +27,18 @@ test_labels = keras.utils.to_categorical(test_labels, 10)
 
 
 # 2. Diseñar arquitectura de red:
-model = models.Sequential()
+model = models.Sequential() # modelo secuencial => tipos de modelos vienen dados por keras: https://keras.io/api/
 
-model.add(layers.Conv2D(filters=6, kernel_size=(5, 5), input_shape=(28,28,1)))
-model.add(layers.Activation('relu'))
-model.add(layers.MaxPooling2D())
+#añadimos capas al modelo 
+model.add(layers.Conv2D(filters=6, kernel_size=(5, 5), input_shape=(28,28,1)))  #convolucion
+model.add(layers.Activation('relu')) #activacion 
+model.add(layers.MaxPooling2D()) #pulling 
+
+#para hacer el modelo de arquitectura LeNet
+# model.add(layers.Conv2D(filters=16, kernel_size=(5, 5), input_shape=(10,10,1))) #convolucion
+# model.add(layers.Activation('relu')) #activacion 
+# model.add(layers.MaxPooling2D()) #pulling 
+
 model.add(layers.Flatten())
 model.add(layers.Dense(units=84))
 model.add(layers.Activation('relu'))
@@ -41,7 +48,7 @@ model.add(layers.Activation('softmax'))
 
 
 
-# 3. Compilar:
+# 3. Compilar: https://keras.io/api/optimizers/ 
 model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
 
 
@@ -54,7 +61,7 @@ train = model.fit(train_images,
 	batch_size=32, 	
 	validation_data=(test_images, test_labels))
 
-
+# batch size => la cantidad de imagenes que cargan. 
 
 # 5. Test:
 score = model.evaluate(test_images, test_labels)
