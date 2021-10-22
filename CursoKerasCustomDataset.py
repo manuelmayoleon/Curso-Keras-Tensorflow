@@ -8,10 +8,10 @@ import matplotlib.pyplot as plt
 train_datagen = ImageDataGenerator(rescale=1./255, horizontal_flip=True, vertical_flip=True)
 val_datagen = ImageDataGenerator(rescale=1./255)
 test_datagen = ImageDataGenerator(rescale=1./255)
-
-train_generator = train_datagen.flow_from_directory('C:\\Users\\LDuran\\Downloads\\dataset_cats_and_dogs\\train', target_size = (128,128), batch_size = 32)
-val_generator = val_datagen.flow_from_directory('C:\\Users\\LDuran\\Downloads\\dataset_cats_and_dogs\\val', target_size = (128,128), batch_size = 32)
-test_generator = test_datagen.flow_from_directory('C:\\Users\\LDuran\\Downloads\\dataset_cats_and_dogs\\test', target_size = (128,128), batch_size = 32)
+# Hay que poner la ruta del dataset 
+train_generator = train_datagen.flow_from_directory('C:\\Users\\manue\\Downloads\\dataset_cats_and_dogs\\train', target_size = (128,128), batch_size = 32)
+val_generator = val_datagen.flow_from_directory('C:\\Users\\manue\\Downloads\\dataset_cats_and_dogs\\val', target_size = (128,128), batch_size = 32)
+test_generator = test_datagen.flow_from_directory('C:\\Users\\manue\\Downloads\\dataset_cats_and_dogs\\test', target_size = (128,128), batch_size = 32)
 
 model = models.Sequential()
 model.add(layers.Conv2D(filters=32, kernel_size=(5, 5), input_shape=(128,128,3)))
@@ -23,7 +23,7 @@ model.add(layers.MaxPooling2D())
 model.add(layers.Flatten())
 model.add(layers.Dense(units=512))
 model.add(layers.Activation('relu'))
-model.add(layers.Dense(units=2))
+model.add(layers.Dense(units=2)) #clases, en este ejemplo son gatos y perros
 model.add(layers.Activation('softmax'))
 
 model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
@@ -52,3 +52,4 @@ test_loss, test_acc = model.evaluate_generator(test_generator)
 print('Test accuracy:', test_acc)
 print('Test loss:', test_loss)
 """
+
